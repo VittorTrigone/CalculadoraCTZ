@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora ST + IPI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    
+        input, select, button {
+            width: 100%; /* Define o mesmo tamanho para todos */
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box; /* Inclui padding e borda no cálculo do tamanho */
+        }
+    
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        .result {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            margin-top: 10px;
+            width: 100%; /* Garante que o mesmo padrão seja aplicado */
+            box-sizing: border-box;
+        }
+    
+        /* Responsividade para dispositivos móveis */
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+    
+            h1 {
+                font-size: 1.5rem;
+            }
+    
+            label, input, select, button {
+                font-size: 1rem;
+            }
+    
+            .result {
+                font-size: 1.1rem;
+                padding: 12px;
+            }
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora ST + IPI</h1>
+
+        <!-- ST + IPI -->
+        <label for="st-ipi">ST + IPI (R$):</label>
+        <input type="number" id="st-ipi" step="0.01" placeholder="Digite o valor de ST + IPI" required 
+            onkeydown="moveFocus(event, 'base-cost')" onfocus="selectContent(this)">
+
+        <!-- Valor Unitário do Produto -->
+        <label for="base-cost">Valor Unitário do Produto (R$):</label>
+        <input type="number" id="base-cost" step="0.01" placeholder="Digite o valor do produto" required 
+            onkeydown="moveFocus(event, 'icms-rate')" onfocus="selectContent(this)">
+
+        <!-- ICMS -->
+        <label for="icms-rate">ICMS (%):</label>
+        <input type="number" id="icms-rate" step="0.01" placeholder="Digite a alíquota do ICMS" required 
+            onkeydown="moveFocus(event, 'calcular-button')" onfocus="selectContent(this)">
+
+        <button id="calcular-button" onclick="calcularCusto()">Calcular Custo Final</button>
+
+        <!-- Botão para voltar ao menu -->
+        <button onclick="voltarAoMenu()">Voltar ao Menu</button>
+
+        <div class="result" id="result">
+            O custo final será exibido aqui.
+        </div>
+    </div>
+
+    <script>
+        function calcularCusto() {
+            // Obter valores dos inputs
+            const stIpi = parseFloat(document.getElementById('st-ipi').value) || 0;
+            const baseCost = parseFloat(document.getElementById('base-cost').value) || 0;
+            const icmsRate = parseFloat(document.getElementById('icms-rate').value) || 0;
+
+            // ICMS padrão para São Paulo
+            const icmsSP = 18;
+
+            // Calcular a diferença do ICMS
+            const icmsDifference = icmsSP - icmsRate;
+
+            // Cálculo do custo final
+            const totalCost = stIpi + (baseCost * (icmsDifference / 100));
+
+            // Arredondar para duas casas decimais com a lógica de arredondamento para cima se necessário
+            const roundedTotalCost = arredondarParaCima(totalCost);
+
+            // Exibir resultado com arredondamento para 2 casas decimais
+            document.getElementById('result').innerHTML = `
+                <strong>Custo Final:</strong> R$ ${roundedTotalCost.toFixed(2)}
+            `;
+        }
+
+        // Função para arredondar para cima a segunda casa decimal caso haja mais números depois da terceira casa
+        function arredondarParaCima(valor) {
+            const valorString = valor.toString();
+            const casasDecimais = valorString.split('.')[1] || '';
+
+            // Verifica se existe a terceira casa decimal ou mais
+            if (casasDecimais.length > 2) {
+                return Math.ceil(valor * 100) / 100; // Arredonda para cima
+            }
+            return Math.floor(valor * 100) / 100; // Se não, arredonda normalmente
+        }
+
+        // Função para mover o foco para o próximo campo ao pressionar Enter
+        function moveFocus(event, nextFieldId) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Previne o comportamento padrão do Enter (submissão de formulário)
+                document.getElementById(nextFieldId).focus(); // Muda o foco para o próximo campo
+            }
+        }
+
+        // Função para selecionar automaticamente todo o conteúdo do campo ao receber foco
+        function selectContent(inputElement) {
+            setTimeout(() => inputElement.select(), 0); // Aguarda para garantir que o evento focus seja concluído
+        }
+
+        // Função para voltar ao menu
+        function voltarAoMenu() {
+            window.location.href = "index.html"; // Redireciona para o menu (index.html)
+        }
+    </script>
+</body>
+</html>
