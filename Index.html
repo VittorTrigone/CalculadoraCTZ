@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Custo Final</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            margin-top: 10px;
+        }
+
+        /* Responsividade para dispositivos móveis */
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            label, input, select, button {
+                font-size: 1rem;
+            }
+
+            .result {
+                font-size: 1.1rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Custo Final</h1>
+        <label for="base-cost">Valor do Produto Unitário (R$):</label>
+        <input type="number" id="base-cost" step="0.01" placeholder="Digite o valor do produto" required>
+
+        <label for="icms-product">ICMS do Produto (%):</label>
+        <input type="number" id="icms-product" step="0.01" placeholder="Digite o ICMS do produto" required>
+
+        <label for="ipi-rate">IPI (%):</label>
+        <input type="number" id="ipi-rate" step="0.01" placeholder="Digite a alíquota do IPI" required>
+
+        <label for="st-value">ST (R$):</label>
+        <input type="number" id="st-value" step="0.0000001" placeholder="Digite o valor do ST (se houver)" required>
+
+        <label for="nota-type">Tipo de Nota:</label>
+        <select id="nota-type">
+            <option value="1">Nota Inteira</option>
+            <option value="0.5">Meia Nota</option>
+        </select>
+
+        <button onclick="calcularCusto()">Calcular Custo Final</button>
+
+        <div class="result" id="result">
+            O custo final será exibido aqui.
+        </div>
+    </div>
+
+    <script>
+        function calcularCusto() {
+            // Obter valores dos inputs
+            const baseCost = parseFloat(document.getElementById('base-cost').value) || 0;
+            const icmsProduct = parseFloat(document.getElementById('icms-product').value) || 0;
+            const ipiRate = parseFloat(document.getElementById('ipi-rate').value) || 0;
+            const stValue = parseFloat(document.getElementById('st-value').value) || 0;
+            const notaType = parseFloat(document.getElementById('nota-type').value);
+
+            // ICMS padrão para São Paulo
+            const icmsSP = 18;
+
+            // Calcular diferença de ICMS, se necessário
+            const icmsDifference = icmsSP - icmsProduct;
+
+            // Somar ICMS e IPI à porcentagem total
+            const totalRate = icmsDifference + ipiRate;
+
+            // Calcular custo inicial com os impostos
+            let totalCost = baseCost * (1 + totalRate / 100);
+
+            // Verificar se há ST
+            if (stValue !== 0) {
+                totalCost += stValue; // Adicionar o valor de ST
+            }
+
+            // Ajustar para meia nota
+            if (notaType === 0.5) {
+                totalCost += baseCost; // Soma o valor do produto novamente
+            }
+
+            // Arredondar corretamente: Arredondar para cima sempre que a terceira casa decimal for maior que 0
+            totalCost = Math.ceil(totalCost * 100) / 100;
+
+            // Exibir resultado com arredondamento para 2 casas decimais
+            document.getElementById('result').innerHTML = `
+                <strong>Custo Final:</strong> R$ ${totalCost.toFixed(2)}
+            `;
+        }
+    </script>
+</body>
+</html>
