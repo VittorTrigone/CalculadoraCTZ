@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,21 +8,57 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            height: 100vh;
+            /* Ocupa toda a altura da janela */
+            display: flex;
+            justify-content: center;
+            /* Centraliza na horizontal */
+            align-items: center;
+            /* Centraliza na vertical */
+            flex-direction: column;
+            /* Organiza os itens (container e footer) em coluna */
+            background-color: #fdbe5f;
+            /* Cor de fundo amarela suave */
+            color: #333;
         }
 
         .container {
             max-width: 600px;
-            margin: 0 auto;
+            width: 100%;
+            /* Garante que o container ocupe toda a largura possível */
+            background-color: #ffffff65;
+            /* Laranja suave */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            /* Centraliza o conteúdo dentro do container */
         }
 
         h1 {
-            text-align: center;
+            color: #FF5722;
+            /* Laranja escuro */
+            font-size: 2rem;
+        }
+
+        h2 {
+            color: #FF5722;
+            /* Laranja escuro */
+            font-size: 1.5rem;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 120px;
+            height: auto;
         }
 
         ul {
             list-style: none;
             padding: 0;
+            margin: 20px 0 0 0;
         }
 
         ul li {
@@ -31,17 +68,28 @@
         a {
             display: block;
             text-decoration: none;
-            background-color: #007bff;
-            color: white;
+            background-color: #FF9800;
+            /* Laranja vibrante */
+            color: rgb(0, 0, 0);
             text-align: center;
             padding: 10px;
             border-radius: 4px;
             width: 100%;
             box-sizing: border-box;
+            transition: background-color 0.3s;
         }
 
         a:hover {
-            background-color: #0056b3;
+            background-color: #E65100;
+            /* Laranja mais escuro no hover */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #FF5722;
+            /* Laranja escuro */
         }
 
         /* Responsividade para dispositivos móveis */
@@ -61,14 +109,21 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Escolha a Calculadora</h1>
+        <img src="Logo Branco.png" alt="Logo Empório CTZ" class="logo">
+        <h1>Empório CTZ</h1>
+        <h2>Escolha a Calculadora</h2>
         <ul>
             <li><a href="CalcularoraInga.html">Calculadora Ingá</a></li>
             <li><a href="CalculadoraOsten.html">Calculadora Osten</a></li>
             <li><a href="CalculadoraNormal.html">Calculadora Custo Normal</a></li>
         </ul>
     </div>
+    <footer>
+        &copy; 2025 Empório CTZ - Todos os direitos reservados.
+    </footer>
 </body>
+
 </html>

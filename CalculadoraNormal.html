@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +8,78 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            height: 100vh;
+            /* Ocupa toda a altura da janela */
+            display: flex;
+            justify-content: center;
+            /* Centraliza na horizontal */
+            align-items: center;
+            /* Centraliza na vertical */
+            flex-direction: column;
+            /* Organiza os itens (container e footer) em coluna */
+            background-color: #fdbe5f;
+            /* Cor de fundo amarela suave */
+            color: #333;
         }
 
         .container {
             max-width: 600px;
-            margin: 0 auto;
+            width: 100%;
+            /* Garante que o container ocupe toda a largura possível */
+            background-color: #ffffff65;
+            /* Laranja suave */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            /* Centraliza o conteúdo dentro do container */
         }
 
-        input, select, button {
+        input,
+        select,
+        button {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             box-sizing: border-box;
         }
 
+        h1 {
+            color: #FF5722;
+            /* Laranja escuro */
+            font-size: 2rem;
+        }
+
         button {
-            background-color: #007bff;
-            color: white;
             border: none;
-            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            background-color: #FF9800;
+            /* Laranja vibrante */
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #E65100;
+            /* Laranja mais escuro no hover */
+        }
+
+        input {
+            border: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        h1 {
+            color: #FF5722;
+            /* Laranja escuro */
+            font-size: 2rem;
         }
 
         .result {
@@ -40,6 +89,7 @@
             margin-top: 10px;
             width: 100%;
             box-sizing: border-box;
+            border-radius: 4px;
         }
 
         /* Responsividade para dispositivos móveis */
@@ -50,10 +100,15 @@
             }
 
             h1 {
-                font-size: 1.5rem;
+                color: #FF5722;
+                /* Laranja escuro */
+                font-size: 2rem;
             }
 
-            label, input, select, button {
+            label,
+            input,
+            select,
+            button {
                 font-size: 1rem;
             }
 
@@ -64,29 +119,40 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Calculadora de Custo Final</h1>
-        
-        <!-- Valor do Produto Unitário -->
-        <label for="base-cost">Valor do Produto Unitário (R$):</label>
-        <input type="number" id="base-cost" step="0.01" placeholder="Digite o valor do produto" required 
-            onkeydown="moveFocus(event, 'icms-product')" onfocus="selectContent(this)">
 
-        <!-- ICMS do Produto -->
-        <label for="icms-product">ICMS do Produto (%):</label>
-        <input type="number" id="icms-product" step="0.01" placeholder="Digite o ICMS do produto" required 
-            onkeydown="moveFocus(event, 'ipi-rate')" onfocus="selectContent(this)">
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <div style="flex: 1;">
+                <!-- Valor do Produto Unitário -->
+                <label for="base-cost">Valor do Produto Unitário (R$):</label>
+                <input type="text" id="base-cost" step="0.01" placeholder="Digite o valor do produto" required
+                    onkeydown="moveFocus(event, 'icms-product')" onfocus="selectContent(this)"
+                    oninput="substituirPontoPorVirgula(this)">
 
-        <!-- IPI -->
-        <label for="ipi-rate">IPI (%):</label>
-        <input type="number" id="ipi-rate" step="0.01" placeholder="Digite a alíquota do IPI" required 
-            onkeydown="moveFocus(event, 'discount-rate')" onfocus="selectContent(this)">
+                <!-- ICMS do Produto -->
+                <label for="icms-product">ICMS do Produto (%):</label>
+                <input type="text" id="icms-product" step="0.01" placeholder="Digite o ICMS do produto" required
+                    onkeydown="moveFocus(event, 'ipi-rate')" onfocus="selectContent(this)"
+                    oninput="substituirPontoPorVirgula(this)">
+            </div>
 
-        <!-- Desconto da Nota -->
-        <label for="discount-rate">Desconto da Nota (%):</label>
-        <input type="number" id="discount-rate" step="0.01" placeholder="Digite o desconto da nota" required 
-            onkeydown="moveFocus(event, 'calcular-button')" onfocus="selectContent(this)">
+            <div style="flex: 1;">
+                <!-- IPI -->
+                <label for="ipi-rate">IPI (%):</label>
+                <input type="text" id="ipi-rate" step="0.01" placeholder="Digite a alíquota do IPI" required
+                    onkeydown="moveFocus(event, 'discount-rate')" onfocus="selectContent(this)"
+                    oninput="substituirPontoPorVirgula(this)">
+
+                <!-- Desconto da Nota -->
+                <label for="discount-rate">Desconto da Nota (%):</label>
+                <input type="text" id="discount-rate" step="0.01" placeholder="Digite o desconto da nota" required
+                    onkeydown="moveFocus(event, 'calcular-button')" onfocus="selectContent(this)"
+                    oninput="substituirPontoPorVirgula(this)">
+            </div>
+        </div>
 
         <!-- Tipo de Nota -->
         <label for="nota-type">Tipo de Nota:</label>
@@ -96,21 +162,26 @@
         </select>
 
         <button id="calcular-button" onclick="calcularCusto()">Calcular Custo Final</button>
-        <button onclick="voltarAoMenu()">Voltar ao Menu</button>
 
         <div class="result" id="result">
             O custo final será exibido aqui.
         </div>
+
+        <div class="result" id="result2">
+            O preço de venda Bling será exibido aqui.
+        </div>
+
+        <button onclick="voltarAoMenu()">Voltar ao Menu</button>
     </div>
 
     <script>
         function calcularCusto() {
             // Obter valores dos inputs
-            const baseCost = parseFloat(document.getElementById('base-cost').value) || 0;
-            const icmsProduct = parseFloat(document.getElementById('icms-product').value) || 0;
-            const ipiRate = parseFloat(document.getElementById('ipi-rate').value) || 0;
-            const discountRate = parseFloat(document.getElementById('discount-rate').value) || 0;
-            const notaType = parseFloat(document.getElementById('nota-type').value);
+            const baseCost = parseFloat(document.getElementById('base-cost').value.replace(',', '.')) || 0;
+            const icmsProduct = parseFloat(document.getElementById('icms-product').value.replace(',', '.')) || 0;
+            const ipiRate = parseFloat(document.getElementById('ipi-rate').value.replace(',', '.')) || 0;
+            const discountRate = parseFloat(document.getElementById('discount-rate').value.replace(',', '.')) || 0;
+            const notaType = parseFloat(document.getElementById('nota-type').value.replace(',', '.')) || 0;
 
             // ICMS padrão para São Paulo
             const icmsSP = 18;
@@ -137,7 +208,12 @@
 
             // Exibir resultado com arredondamento para 2 casas decimais
             document.getElementById('result').innerHTML = `
-                <strong>Custo Final:</strong> R$ ${totalCost.toFixed(2)}
+                <strong>Custo Final:</strong> R$ ${totalCost.toFixed(2).replace('.', ',')}
+            `;
+
+            // Exibir resultado com arredondamento para 2 casas decimais
+            document.getElementById('result2').innerHTML = `
+                <strong>Preço de Venda:</strong> R$ ${(totalCost * 2).toFixed(2).replace('.', ',')}
             `;
         }
 
@@ -155,6 +231,19 @@
         function voltarAoMenu() {
             window.location.href = "/CalculadoraCTZ/Index.html";
         }
+
+        function substituirPontoPorVirgula(input) {
+            let valor = input.value;
+
+            // Substituir ponto por vírgula
+            valor = valor.replace(/\./g, ',');
+
+            // Permitir apenas números e uma única vírgula
+            valor = valor.replace(/[^0-9,]/g, ''); // Remove caracteres inválidos
+
+            input.value = valor;
+        }
     </script>
 </body>
+
 </html>
