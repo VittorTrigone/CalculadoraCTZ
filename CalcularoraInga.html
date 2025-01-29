@@ -10,46 +10,36 @@
             font-family: Arial, sans-serif;
             margin: 0;
             height: 100vh;
-            /* Ocupa toda a altura da janela */
             display: flex;
             justify-content: center;
-            /* Centraliza na horizontal */
             align-items: center;
-            /* Centraliza na vertical */
             flex-direction: column;
-            /* Organiza os itens (container e footer) em coluna */
             background-color: #fdbe5f;
-            /* Cor de fundo amarela suave */
             color: #333;
         }
 
         .container {
             max-width: 600px;
-            width: 100%;
-            /* Garante que o container ocupe toda a largura possível */
+            width: 90%;
             background-color: #ffffff65;
-            /* Laranja suave */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            /* Centraliza o conteúdo dentro do container */
         }
 
         input,
         select,
         button {
             width: 100%;
-            /* Define o mesmo tamanho para todos */
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             box-sizing: border-box;
-            /* Inclui padding e borda no cálculo do tamanho */
+            border-radius: 4px;
         }
 
         input {
             border: #f8f9fa;
-            border-radius: 4px;
         }
 
         button {
@@ -57,19 +47,13 @@
             display: block;
             text-decoration: none;
             background-color: #FF9800;
-            /* Laranja vibrante */
             color: rgb(0, 0, 0);
             text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
             transition: background-color 0.3s;
         }
 
         button:hover {
             background-color: #E65100;
-            /* Laranja mais escuro no hover */
         }
 
         .result {
@@ -78,22 +62,18 @@
             border: 1px solid #ced4da;
             margin-top: 10px;
             width: 100%;
-            /* Garante que o mesmo padrão seja aplicado */
             box-sizing: border-box;
             border-radius: 4px;
         }
 
         /* Responsividade para dispositivos móveis */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .container {
-                margin: 10px;
                 padding: 15px;
             }
 
             h1 {
-                color: #FF5722;
-                /* Laranja escuro */
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             label,
@@ -105,6 +85,28 @@
 
             .result {
                 font-size: 1.1rem;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            label,
+            input,
+            select,
+            button {
+                font-size: 0.9rem;
+            }
+
+            .result {
+                font-size: 1rem;
                 padding: 12px;
             }
         }

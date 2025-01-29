@@ -10,41 +10,31 @@
             font-family: Arial, sans-serif;
             margin: 0;
             height: 100vh;
-            /* Ocupa toda a altura da janela */
             display: flex;
             justify-content: center;
-            /* Centraliza na horizontal */
             align-items: center;
-            /* Centraliza na vertical */
             flex-direction: column;
-            /* Organiza os itens (container e footer) em coluna */
             background-color: #fdbe5f;
-            /* Cor de fundo amarela suave */
             color: #333;
         }
 
         .container {
             max-width: 600px;
-            width: 100%;
-            /* Garante que o container ocupe toda a largura possível */
+            width: 90%; /* Ajuste a largura para que ocupe 90% da tela em dispositivos móveis */
             background-color: #ffffff65;
-            /* Laranja suave */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            /* Centraliza o conteúdo dentro do container */
         }
 
         h1 {
             color: #FF5722;
-            /* Laranja escuro */
             font-size: 2rem;
         }
 
         h2 {
             color: #FF5722;
-            /* Laranja escuro */
             font-size: 1.5rem;
         }
 
@@ -69,10 +59,9 @@
             display: block;
             text-decoration: none;
             background-color: #FF9800;
-            /* Laranja vibrante */
             color: rgb(0, 0, 0);
             text-align: center;
-            padding: 10px;
+            padding: 12px;
             border-radius: 4px;
             width: 100%;
             box-sizing: border-box;
@@ -81,7 +70,6 @@
 
         a:hover {
             background-color: #E65100;
-            /* Laranja mais escuro no hover */
         }
 
         footer {
@@ -89,22 +77,44 @@
             margin-top: 20px;
             font-size: 1.1rem;
             color: #FF5722;
-            /* Laranja escuro */
         }
 
         /* Responsividade para dispositivos móveis */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .container {
                 margin: 10px;
                 padding: 15px;
             }
 
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
             }
 
             a {
                 font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            a {
+                font-size: 0.9rem;
+                padding: 10px;
             }
         }
     </style>
